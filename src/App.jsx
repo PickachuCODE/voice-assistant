@@ -1,45 +1,37 @@
-import { useState } from 'react'
-import logo from './logo.svg'
+import React from 'react'
+import BotVisuals from './Bot Engine/BotVisuals'
 import './App.css'
+import { useTheme } from './Context/ThemeManger'
+import { useEffect } from 'react'
+import Chats from './Bot Engine/BotChats'
+import { EngineProvider, useEngine } from './Context/EngineManger'
+import initSpeech from './Bot Engine/Engine/_SpeechEngine'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const { theme } = useTheme()
+  const {type} = useEngine()
+  console.clear()
+
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <EngineProvider>
+      <BotDisplay />
+    </EngineProvider>
   )
 }
 
-export default App
+
+function BotDisplay() {
+  const { theme } = useTheme()
+
+  return (
+    <div className="main">
+      <div className="dilougeBox">
+        <Chats />
+      </div>
+      <div className="botBox" style={{ background: theme.mainColor }}>
+        <BotVisuals />
+      </div>
+    </div>
+  )
+}
