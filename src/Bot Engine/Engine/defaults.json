@@ -1,0 +1,88 @@
+{
+    "user": {
+        "displayName": null
+    },
+    "greetings": {
+        "in": [
+            {
+                "e_text": ["hi", "hello", "sup", "whats up", "what's up", "hey" , "👋"],
+                "weight": 0.51
+            },
+            {
+                "e_text": ["good morning"],
+                "weight": 0.51
+            }
+        ],
+        "out": [
+            {
+                "o_text": [
+                    "hi there 👋",
+                    "hello, what will you like me to do",
+                    "how can i help",
+                    "what would you like me to do"
+                ],
+                "weight": 0.51
+            }
+        ]
+    },
+    "commands": {
+        "in": [
+            {
+                "e_text": ["open"],
+                "weight" : 0.91
+            },
+            {
+                "e_text": ["time","what is the time", "what say's the time"],
+                "weight": 0.92
+            }
+        ],
+        "out":[
+            {
+                "o_text": ["what should i open", "i should open ?"],
+                "weight": 0.91
+            },
+            {
+                "o_text": ["the time is", "it's"],
+                "weight": 0.92
+            }
+        ]
+    },
+    "randoms": {
+        "in": [
+            {
+                "e_text": ["what"],
+                "weight": 0.01
+            },
+            {
+                "e_text": ["no", "not at all"],
+                "weight": 0.001
+            },
+            {
+                "e_text": ["yes", "not at all"],
+                "weight": 0.002
+            },
+            {
+                "e_text": ["you look good", "you look good to day"],
+                "weight": 0.02
+            }
+        ],
+        "out": [
+            {
+                "o_text": ["is there a problem"],
+                "weight": 0.01
+            },
+            {
+                "o_text": ["ok, do you need anything else"],
+                "weight": 0.001
+            },
+            {
+                "o_text": ["ok, what do you need"],
+                "weight": 0.002
+            },
+            {
+                "o_text": ["thanks", "awwn, thanks", "you too"],
+                "weight": 0.02
+            }
+        ]
+    }
+}

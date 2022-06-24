@@ -12,7 +12,7 @@ function initEngine(values) {
             type: values.inputType,
             text: userText,
         },
-        botInfo: LogicManger(userText, values.readOut, values.volume, values.delay, values.greetAnimation),
+        botInfo: LogicManger(userText, values.readOut, values.volume, values.delay, values.greetAnimation, values.callback),
     };
     
     return Botdata

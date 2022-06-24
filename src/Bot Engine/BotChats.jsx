@@ -30,6 +30,8 @@ export default function Chats() {
         ChatVoice: {
             background: theme.mainColor,
             color: theme.altColor,
+            opacity: '0',
+            display: 'none'
         },
         ChatLinks: {
             color: 'red',

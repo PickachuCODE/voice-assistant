@@ -5,13 +5,12 @@ import { useTheme } from './Context/ThemeManger'
 import { useEffect } from 'react'
 import Chats from './Bot Engine/BotChats'
 import { EngineProvider, useEngine } from './Context/EngineManger'
-import initSpeech from './Bot Engine/Engine/_SpeechEngine'
 
 export default function App() {
   const { theme } = useTheme()
-  const {type} = useEngine()
   console.clear()
 
+  
 
   return (
     <EngineProvider>

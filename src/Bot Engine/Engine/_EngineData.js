@@ -1,23 +1,6 @@
 const key_Data = "BotData"
-let Data = {
-    user: {
-        displayName: null,
-    },
-    greetings: {
-        in: [
-            {
-                e_text: ['hi', 'hello', 'sup'],
-                weight: '0.51'
-            }
-        ],
-        out: [
-            {
-                o_text: ['hi', 'hello', 'how can i help'],
-                weight: '0.51'
-            }
-        ]
-    }
-}
+import dataJson from './defaults.json'
+let Data = dataJson
 
 
 function EngineData() {

@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useState, createContext, useContext } from "react";
 import { _anim_Hi } from "../Bot Engine/Animations/greeting";
 import { initEngine } from "../Bot Engine/Engine/_Engine";
-import initSpeech from "../Bot Engine/Engine/_SpeechEngine";
 
 const EngineContext = createContext({})
 const useEngine = () => useContext(EngineContext)
@@ -11,17 +10,16 @@ const useEngine = () => useContext(EngineContext)
 const EngineProvider = ({ children }) => {
     const [botResult, setResult] = useState()
     const [output, s_Output] = useState()
-    const [transScript, g_tanscript] = useState()
-    const [type, s_type] = useState('voice')
+    const [type, s_type] = useState('text')
 
     useEffect(() => {
         GoDown(400, '#chatUser', 0.2)
+        GoDown(400, '#chatVoice', 0.2)
         showBotData()
+        // showUserInput()
     }, [botResult])
 
-    if (type === 'voice') {
-        initSpeech('chatUserInputVoice', i_Engine, 500)
-    }
+    
 
     function i_Engine() {
         const Engine = initEngine(
@@ -29,6 +27,7 @@ const EngineProvider = ({ children }) => {
                 inputType: type,
                 chatInputTarget: 'chatUserInput',
                 readOut: true,
+                voiceResult: 'chatUserInputVoice',
                 volume: 1,
                 rate: 0.6,
                 delay: 1100,
@@ -37,6 +36,45 @@ const EngineProvider = ({ children }) => {
         )
         setResult(Engine.botInfo);
         console.log(Engine.botInfo);
+    }
+    if (type === 'voice') {
+        initSpeech('chatUserInputVoice')
+    }
+    
+    function initSpeech(target) {
+        var recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = true;
+        recognition.lang = "en-US";
+
+        var r_event = ""
+
+        recognition.onerror = function (event) {
+            console.error(event);
+        };
+
+        recognition.onstart = function () {
+            console.log("Speech recognition service has started");
+        };
+
+        recognition.onend = function () {
+            
+            console.log("Speech recognition service disconnected");
+        };
+        recognition.onspeechend = () => {
+            i_Engine()
+            console.log('end talk');
+        }
+        recognition.onresult = function (event) {
+            r_event = event.results[event.resultIndex][0].transcript;
+            document.getElementById(target).innerText = r_event
+
+            console.log(event);
+        };
+
+
+        return recognition;
+
     }
     function initBot() {
         console.log('botEngine: running');
@@ -48,12 +86,16 @@ const EngineProvider = ({ children }) => {
             if (type === 'prompt') {
                 i_Engine()
             }
+            if (type === 'voice') {
+                showVoiceInput()
+            }
         }, 600);
     }
     function forInputFormat() {
         i_Engine()
     }
-
+    
+   
     function GoDown(duration, target, animationDuration) {
         setTimeout(() => {
             gsap.to(target, {
@@ -94,11 +136,22 @@ const EngineProvider = ({ children }) => {
             _target.focus()
         }, 300);
     }
+    function showVoiceInput() {
+        setTimeout(() => {
+            gsap.to(`#chatVoice`, {
+                opacity: 1,
+                display: 'flex',
+                duration: 0.3,
+                translateY: 0,
+                onComplete: `` ,
+            })
+        }, 200)
+        initSpeech('chatUserInputVoice').start()
+    }
     const EngineValues = {
         initBot,
         output,
         forInputFormat,
-        transScript,
     }
     return (
         <EngineContext.Provider value={EngineValues}>

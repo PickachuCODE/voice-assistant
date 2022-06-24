@@ -1,5 +1,6 @@
 function GetUserInput(target, inputType, voice) {
     const trigger = document.getElementById(target);
+    const g_voice = document.getElementById(voice);
     // if(trigger === null) return(console.warn('Target not Found!'))
     let input = "";
     if (inputType === "prompt") {
@@ -12,7 +13,7 @@ function GetUserInput(target, inputType, voice) {
     }
     if (inputType === "voice") {
         console.log("Using: voice");
-        input = voice
+        input = g_voice.innerText
     }
 
     if (input === null) {
